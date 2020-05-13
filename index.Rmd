@@ -1,0 +1,56 @@
+---
+title: "Travelling in Europe"
+author: "Miguel Couto"
+date: "13 May 2020"
+output: html_document
+---
+
+
+```{r echo=FALSE, message=FALSE, fig.height=9}
+library(leaflet)
+
+# places to go
+places_to_go <- c("Barcelona", "Gibraltar", "Venice", "Meteora", "Santorini",
+            "Dubrovnik", "Berlin", "Amsterdam", "Copenhagen", "Oslo", "Iceland")
+           
+lat_to_go <- c(41.3851, 36.1408, 45.4408, 39.7217, 36.3932,
+               42.6507, 52.5200, 52.3667, 55.6761, 59.9139, 64.9631)
+
+long_to_go <- c(2.1734, -5.3536, 12.3155, 21.6306, 25.4615,
+                 18.0944, 13.4050, 4.8945, 12.5683, 10.7522, -19.0208)
+
+to_go <- data.frame(name = places_to_go,
+                    latitude = lat_to_go,
+                    longitude = long_to_go)
+
+# places I've been
+places_been <- c("Porto", "Lisbon", "Glasgow", "Edinburgh", "Scottish Highlands",
+                 "Switzerland", "London", "Oxford", "Dublin", "Belfast", "Manchester",
+                 "Lancaster", "Madrid", "Paris", "Rome", "Milan", "Athens", "Munich",
+                 "Brussels", "Gdansk")
+
+lat_been <- c(41.1579, 38.7223, 55.8642, 55.9533, 57.4596,
+              46.8182, 51.5074, 51.7520, 53.3498, 54.5973, 53.4808,
+              54.0466, 40.4168, 48.8566, 41.9028, 45.4642, 37.9838, 48.1351,
+              50.8503, 54.3520)
+
+long_been <- c(-8.6291, -9.1393, -4.2518, -3.1883, -4.2264,
+               8.2275, -0.1278, -1.2577, -6.2603, -5.9301, -2.2426,
+               -2.8007, -3.7038, 2.3522, 12.4964, 9.1900, 23.7275, 11.5820,
+               4.3517, 18.6466)
+
+been <- data.frame(name = places_been,
+                   latitude = lat_been,
+                   longitude = long_been)
+
+# all places
+travel <- rbind(to_go, been)
+travel$col <- c(rep("red", dim(to_go)[1]), rep("blue", dim(been)[1]))
+
+
+travel %>% leaflet() %>% addTiles() %>%
+    addCircleMarkers(color = travel$col, popup = travel$name) %>%
+    addLegend(labels = c("Places to travel to", "Places I've travelled to"),
+              colors = c("red", "blue"))
+```
+
