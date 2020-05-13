@@ -1,0 +1,30 @@
+---
+title: "Air Quality in New York"
+author: "Miguel Couto"
+date: "13 May 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Air quality in New York
+
+```{r message=FALSE}
+library(dplyr)
+library(plotly)
+library(tidyr)
+
+time <- paste(airquality$Day, airquality$Month, sep="-")
+time <- as.Date(time, "%d-%m")
+
+df <- airquality %>% select(Ozone, Wind, Temp) %>%
+    gather(feature, levels) %>%
+    mutate(time = rep(time, 3))
+
+plot_ly(df, x=~time, y=~levels, color=~feature,
+        type="scatter", mode="lines")
+```
+
+
