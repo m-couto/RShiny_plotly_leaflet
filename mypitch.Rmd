@@ -1,0 +1,69 @@
+---
+title: "CO2 Uptake Prediction"
+author: "Miguel Couto"
+date: "5/14/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## The Application
+
+<center> The app predicts plants' carbon dioxide uptake from the ambient carbon dioxide concentration. </center>
+
+
+<font size="4">
+
+- it can be accessed at: https://m-couto.shinyapps.io/course_project/;
+
+- it was written in R, using the "shiny package";
+
+- I used the "CO2" dataset from R, which contains the variables:
+
+    1. a plant identifier,
+    2. the type/origin of the plant: Quebec or Mississippi,
+    3. the treatment the plant undertook: chilled or nonchilled,
+    4. the ambient CO2 concentration,
+    5. the CO2 uptake by the plant.
+
+Given a certain type and treatment, our app predicts the plants' CO2 uptake using three regression models on a given ambient CO2 concentration.
+
+</font>
+
+
+
+## The input
+
+<font size="4"> The user is able to choose: 1. the ambient CO2 concentration, 2. the type and treatment of the plant, 3. the model(s) to predict with. </font>
+
+```{r}
+setwd("~/Desktop/Data Science course/9. Developing Data Products/Course_Project")
+```
+
+<center> ![](fig1.png) </center>
+
+
+## The output
+
+<font size="4"> The user obtains a plot of the data and (at most three) model predictions. </font>
+
+<center> ![](fig2.png) </center>
+
+
+## The documentation
+
+More information can be found in the documentation tab:
+
+<font size = "3"> This app uses the CO2 dataset from R's "datasets" package, which consists of many measurements of carbon dioxide's uptake by several plants of one of two types (Quebec or Mississippi) and subject to one of two treatments (chilled or nonchilled) in different ambient carbon dioxide concentrations. </font>
+
+<font size = "3"> The sliders on the side panel allow the user to choose 1. the ambient carbon dioxide concentration, 2. the type of plant you want to consider, 3. the treatment the plant was subject to. </font>
+
+<font size = "3"> This app predicts the plant's uptake of carbon dioxide for the ambient CO2 concentration, by three different methods: A. linear regression, B. quadratic regression, C. polynomial regression. The user can choose which of these models to use by ticking/unticking the checkboxes on the side panel. </font>
+
+<font size = "3"> The data and the prediction models are all plotted in a graph, and the predicted CO2 uptake for the ambient CO2 concentration the user chose can be viewed under the graph. So, go and test it on the "Use the app" tab and enjoy the app. </font>
+
+
