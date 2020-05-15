@@ -20,6 +20,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 - it can be accessed at: https://m-couto.shinyapps.io/course_project/;
 
+- further app files found in GitHub: https://github.com/m-couto/developingdataproducts;
+
 - it was written in R, using the "shiny package";
 
 - I used the "CO2" dataset from R, which contains the variables:
@@ -51,7 +53,47 @@ setwd("~/Desktop/Data Science course/9. Developing Data Products/Course_Project"
 
 <font size="4"> The user obtains a plot of the data and (at most three) model predictions. </font>
 
-<center> ![](fig2.png) </center>
+```{r message=FALSE, fig.align='center', fig.width=5}
+library(dplyr)
+library(ggplot2)
+library(ggformula)
+
+df <- CO2 %>% filter(Type == "Quebec", Treatment == "chilled")
+
+g <- ggplot(df, aes(x=conc, y=uptake)) + geom_point() +
+    xlab("ambient CO2 concentration (mL/L)") +
+    ylab("CO2 uptake (umol/m^2 sec)")
+
+
+# linear regression & prediction
+fit1 <- lm(uptake ~ conc, data=df)
+pred1 <- predict(fit1, data.frame(conc=500))
+
+g <- g + geom_smooth(method = "lm", formula = y ~ x, color = "black") +
+    geom_point(data=data.frame(conc=500, uptake=pred1),
+               color="black", size=4)
+
+
+# linear regression with quadratic terms
+fit2 <- lm(uptake ~ I(conc) + I(conc^2), data=df)
+pred2 <- predict(fit2, data.frame(conc=500))
+
+g <- g + geom_smooth(method = "lm", formula = y ~ I(x) + I(x^2), color = "blue") +
+    geom_point(data=data.frame(conc=500, uptake=pred2),
+               color="blue", size=4)
+
+
+# fit a local polynomial regression
+fit3 <- loess(uptake ~ conc, data=df)
+pred3 <- predict(fit3, data.frame(conc=500))
+
+g <- g + geom_smooth(method = "loess", formula = y ~ x, color="red") +
+    geom_point(data=data.frame(conc=500, uptake=pred3),
+                           color="red", size=4)
+
+g
+```
+
 
 
 ## The documentation
