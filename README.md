@@ -1,4 +1,4 @@
-# RShiny_Plotly_Leaflet
+# RShiny_plotly_leaflet
 
 This repository contains three projects:
 
